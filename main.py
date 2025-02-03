@@ -1,4 +1,7 @@
 # https://medium.com/@ramjoshi.blogs/building-rest-apis-with-python-and-fastapi-f0e9ae19905c
+
+# https://stackoverflow.com/questions/2337281/how-do-i-do-an-initial-push-to-a-remote-repository-with-git
+
 from fastapi import FastAPI, File, UploadFile, responses
 from pydantic import BaseModel
 import matplotlib as plt #-> TODO install it

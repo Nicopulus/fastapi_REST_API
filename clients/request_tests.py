@@ -52,6 +52,16 @@ class RequestTests:
         else:
             print(f"Request failed with code: {response.status_code}")
             return None
+    
+    def post_data(self, data=None):
+        if data is None:
+            raise ValueError("Data cannot be None.")
+        response = requests.post(self._base_url, json=data)
+        if response.status_code == 200:
+            return response.json()
+        else:
+            print(f"Request failed with code: {response.status_code}")
+            return None
 
 if __name__ == "__main__":
     ###POST/GET_TESTS####
@@ -69,3 +79,5 @@ if __name__ == "__main__":
 ####################################################
     tester = RequestTests("http://localhost:8000/")
     print(tester.get_data(10))
+    # data = {'name' : 'nico', 'price':100}
+    print(tester.post_data(data={'name' : 'nico', 'price': 100}))
