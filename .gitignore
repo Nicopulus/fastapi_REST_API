@@ -1,1 +1,5 @@
 .venv
+2Dplot
+__pycache__/
+clients/get_plot_received.png
+clients/post_plot_received.png
