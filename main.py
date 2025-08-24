@@ -48,4 +48,6 @@ async def get_created_plot():
 
 #to start the app in development mode: fastapi dev .main.py / also fastapi dev
 #to start the app in production mode: uvicorn main:app --reload / also fastapi run
-#D:\repos\fast_api_devs\fastapi_REST_API\.venv\Scripts> .\activate
+
+#to run in win:D:\repos\fast_api_devs\fastapi_REST_API\.venv\Scripts> .\activate
+#to run in linux: .venv/bin/python -m fastapi run
