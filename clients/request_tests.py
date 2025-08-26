@@ -10,7 +10,7 @@ def get_data(url, item_id):
         print(f"Request failed with code: {response.status_code}")
         return None
 
-def post_data(url, data=None):
+def post_create_item(url, data=None):
     response = requests.post(url, json=data)
     if response.status_code == 200:
         return response.json()
@@ -44,19 +44,37 @@ class RequestTests:
     def __init__(self, base_url):
         self._base_url = base_url
     
-    def get_data(self, item_id):
-        get_url = self._base_url + "items/" +str(item_id)
+    def get_root(self):
+        get_url = self._base_url
         response = requests.get(get_url)
         if response.status_code == 200:
             return response.json()
         else:
             print(f"Request failed with code: {response.status_code}")
             return None
+
+    def get_read_item(self, item_id):
+        get_url = self._base_url + "items/" + str(item_id['id_number'])
+        response = requests.get(get_url, json=item_id)
+        if response.status_code == 200:
+            return response.json()
+        else:
+            print(f"Request failed with code: {response.status_code}")
+            return None
     
-    def post_data(self, data=None):
+    def post_create_item(self, data=None):
         if data is None:
             raise ValueError("Data cannot be None.")
-        response = requests.post(self._base_url, json=data)
+        response = requests.post(self._base_url  + "items/", json=data)
+        if response.status_code == 200:
+            return response.json()
+        else:
+            print(f"Request failed with code: {response.status_code}")
+            return None
+
+    def get_temperature(self, sensor_id):
+        get_url = self._base_url + "temperature/" + sensor_id
+        response = requests.get(get_url)
         if response.status_code == 200:
             return response.json()
         else:
@@ -78,6 +96,10 @@ if __name__ == "__main__":
 
 ####################################################
     tester = RequestTests("http://localhost:8000/")
-    print(tester.get_data(10))
-    # data = {'name' : 'nico', 'price':100}
-    print(tester.post_data(data={'name' : 'nico', 'price': 100}))
+    print(tester.get_root())
+    test_data_get = {'id_number': 100}
+    print(tester.get_read_item(test_data_get))
+    test_data_post = {'name': 'nico', 'id_number': 100}
+    print(tester.post_create_item(data=test_data_post))
+    test_sensor_id = {'sensor_id': 'temp_simulated'}
+    print(tester.get_temperature(test_sensor_id['sensor_id']))
