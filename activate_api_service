@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# To give permisson to run the .sh file, run the following command:
+# chmod +x /path/to/yourscript.sh
+
+# sudo apt update
+# sudo apt upgrade
+# sudo apt autoremove
+
+./.venv/bin/python ./main.py
