@@ -1,5 +1,6 @@
 import requests
 import os
+import sys
 
 def get_data(url, item_id):
     get_url = url + str(item_id)
@@ -41,8 +42,11 @@ def get_2d_plot(url):
         return None
 
 class RequestTests:
-    def __init__(self, base_url):
-        self._base_url = base_url
+    def __init__(self, server_address="localhost", port="8000"):
+        self._platform = sys.platform
+        if self._platform.startswith("win32") or self._platform.startswith("win64"):
+            server_address="pi.hole"
+        self._base_url = f'http://{server_address}:{port}/'
     
     def get_root(self):
         get_url = self._base_url
@@ -75,6 +79,9 @@ class RequestTests:
     def get_temperature(self, sensor_id):
         get_url = self._base_url + "temperature/" + sensor_id
         response = requests.get(get_url)
+        return self._checking_response(response)
+        
+    def _checking_response(self, response):
         if response.status_code == 200:
             return response.json()
         else:
@@ -95,7 +102,7 @@ if __name__ == "__main__":
     # get_2d_plot(general_url)
 
 ####################################################
-    tester = RequestTests("http://localhost:8000/")
+    tester = RequestTests()
     print(tester.get_root())
     test_data_get = {'id_number': 100}
     print(tester.get_read_item(test_data_get))
