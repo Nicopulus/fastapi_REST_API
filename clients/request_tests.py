@@ -102,7 +102,11 @@ if __name__ == "__main__":
     # get_2d_plot(general_url)
 
 ####################################################
+<<<<<<< HEAD
     tester = RequestTests()
+=======
+    tester = RequestTests("http://localhost:8000/")#
+>>>>>>> 12d2763 (merging from windows)
     print(tester.get_root())
     test_data_get = {'id_number': 100}
     print(tester.get_read_item(test_data_get))
